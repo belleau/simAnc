@@ -20,6 +20,6 @@ genotype}
 Pascal Belleau,
 Astrid Deschênes and Alexander Krasnitz
 
-Maintainer:
+Maintainer: Pascal Belleau
 }
 \keyword{package}
