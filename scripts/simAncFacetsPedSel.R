@@ -2,7 +2,7 @@
 argv = commandArgs(trailingOnly=TRUE)
 
 library(devtools)
-load_all(path = "/mnt/wigclust18/data/unsafe/belleau/beatHaplo/subsetMix/package/simAnc")
+load_all(path = "/mnt/wigclust18/data/unsafe/belleau/beatHaplo/subsetMix/packages/simAnc")
 
 
 
