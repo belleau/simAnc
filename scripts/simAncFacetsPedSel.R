@@ -12,6 +12,7 @@ fileFacets <- argv[3]
 nbSim <- as.numeric(argv[4])
 chr <- argv[5]
 seedV <- as.numeric(argv[6])
+
 set.seed(seedV)
 nameSel <- gsub(".rds", "", sampleRef)
 

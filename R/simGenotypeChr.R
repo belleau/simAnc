@@ -28,7 +28,7 @@ simuleBasicGenoChr <- function(genotype,
                        seqError =  0.001/3,
                        dProp = NA){
 
-    #infoSNV$snv$gtype <- genotype[infoSNV$listPos,]
+
     infoSNV$snv <- setGeno(infoSNV, genotype)
     print("parseSegLap")
     infoSNV$snv <- parseSegLap(mysegs, infoSNV$snv, seqError, dProp)
@@ -39,8 +39,8 @@ simuleBasicGenoChr <- function(genotype,
     print("genoMatrix")
     matGeno <- genoMatrix( infoSNV$snv, resSim, blockSeg)
 
-    resFinal <- list(snv = infoSNV$snv[infoSNV$listPos[resSim$listKeep],],
-                     listKeep = infoSNV$listPos[resSim$listKeep],
+    resFinal <- list(snv = infoSNV$snv[infoSNV$listSubset[resSim$listSNV],],
+                     listKeep = infoSNV$listSubset[resSim$listSNV],
                      matSim = resSim$matSim,
                      blockSeg = blockSeg,
                      matGeno = matGeno)
