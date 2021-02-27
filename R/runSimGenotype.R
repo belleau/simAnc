@@ -1,3 +1,48 @@
+#' @title parseSelMinFreq
+#'
+#' @description Generate a subset of snv
+#'
+#' @param fileList a \code{list} of \code{GRanges}, the segments from multiple
+#' files.
+#'
+#' @param snv a \code{data.frame} with at least the column
+#' chr, pos, ref, alt, AF, EAS_AF , EUR_AF, AFR_AF, AMR_AF, SAS_AF
+#'
+#' @param minFreq \code{numeric} minima frequency in at least one population
+#'
+#' @return a \code{list} of snv = \code{data.frame} with
+#' column : chr, pos, ref, alt, gtype
+#' and
+#' listSubset = index of the snv keep from the snv input
+#'
+#'
+#' @examples
+#'
+#' # TODO
+#'
+#' @author Pascal Belleau, Astrid Deschenes and
+#' Alexander Krasnitz
+#'
+#' @export
+
+
+parseSelMinFreq <- function(snv, genotype, minFreq=0.01){
+
+    #snv <- read.csv2(fileName, header = FALSE)
+
+    #colnames(snv) <- c("chr", "pos", "ref", "alt", "AF", "EAS_AF" ,"EUR_AF", "AFR_AF", "AMR_AF", "SAS_AF")
+
+    listPos <- which(snv$EAS_AF >= minFreq |
+                         snv$EUR_AF >= minFreq |
+                         snv$AFR_AF >= minFreq |
+                         snv$AMR_AF >= minFreq |
+                         snv$SAS_AF >= minFreq)
+
+
+    snv <- snv[listPos, c("chr", "pos", "ref", "alt")]
+
+    return(list(snv=snv, listSubset = listPos))
+}
 
 #' @title simulationGenotypeProfileFacets
 #'
@@ -19,23 +64,23 @@
 #' @author Pascal Belleau, Astrid Deschênes
 #' @encoding UTF-8
 #' @export
+
+
 simulationGenotypeProfileFacets <- function(PATH_OUT,
                                         PATH_1K,
                                         patientID,
                                         fileBed,
                                         fileFacets,
                                         filePedSel,
-                                        fileMatFreq,
                                         chr,
                                         nbSim,
                                         minCov = 10,
-                                        minFreq =0.01,
                                         seqError =  0.001/3,
                                         dProp = NA){
     print("Read Files")
     pedSel <- readRDS(filePedSel)
-    matFreq <- read.csv2(fileMatFreq, header=FALSE)
-    colnames(matFreq) <- c("chr", "pos", "ref", "alt", "AF", "EAS_AF" ,"EUR_AF", "AFR_AF", "AMR_AF", "SAS_AF")
+
+    infoSNV <- readRDS(paste0(PATH_OUT, "infoSNV.rds"))
 
     #Elzar
     #bedCov <- read.table(pipe(paste0("zcat ", PATH_BED, patientID,".bed.gz|grep $'", chr, "\t'")), sep="\t")[,1:3]
@@ -49,7 +94,7 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
     mysegs$lap[selTmp] <- mysegs$lcn.em[selTmp] / mysegs$tcn.em[selTmp]
 
     print("End read files")
-    infoSNV <- parseSelMinFreq(snv=matFreq, genotype=genotype, minFreq)
+
     print("computeBedCov")
     infoSNV$snv <- computeBedCov(bedCov, infoSNV$snv)
 

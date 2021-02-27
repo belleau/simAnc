@@ -39,8 +39,8 @@ simuleBasicGenoChr <- function(genotype,
     print("genoMatrix")
     matGeno <- genoMatrix( infoSNV$snv, resSim, blockSeg)
 
-    resFinal <- list(snv = infoSNV$snv[infoSNV$listSubset[resSim$listSNV],],
-                     listKeep = infoSNV$listSubset[resSim$listSNV],
+    resFinal <- list(snv = infoSNV$snv[resSim$listSNV,],
+                     listKeep = resSim$listSNV,
                      matSim = resSim$matSim,
                      blockSeg = blockSeg,
                      matGeno = matGeno)
