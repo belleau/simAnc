@@ -13,9 +13,10 @@ nbSim <- as.numeric(argv[4])
 chr <- argv[5]
 seedV <- as.numeric(argv[6])
 
+nameSel <- gsub(".rds", "", sampleRef)
 
 PATH_1K <- "/mnt/wigclust5/data/unsafe/belleau/process1000G/samples1000gUnrelated/"
-PATH_OUT <- paste0("data/simRes.Mix.", nbSim,"/", chr, "/")
+PATH_OUT <- paste0("data/simRes.", nameSel, ".", nbSim,"/", chr, "/")
 PATH_PED <- "data/ped1000g/"
 PATH_BED <- "data/bedAll/"
 PATH_FACETS <- "data/facetsFit/"
