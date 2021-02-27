@@ -32,7 +32,7 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
                                         minFreq =0.01,
                                         seqError =  0.001/3,
                                         dProp = NA){
-
+    print("Read Files")
     pedSel <- readRDS(filePedSel)
     matFreq <- read.csv2(fileMatFreq, header=FALSE)
     colnames(matFreq) <- c("chr", "pos", "ref", "alt", "AF", "EAS_AF" ,"EUR_AF", "AFR_AF", "AMR_AF", "SAS_AF")
@@ -47,19 +47,19 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
     mysegs$lap <- rep(NA, nrow(mysegs))
     mysegs$lap[which(!(is.na(mysegs$lcn.em)) || mysegs$tcn.em != 0 )]
 
-
+    print("End read files")
     infoSNV <- parseSelMinFreq(snv=matFreq, genotype=genotype, minFreq)
 
 
     snv <- NULL
     for(i in seq_len(nrow(pedSel))){
-
+        print(paste0("Process ",patientID, ".", pedSel$sample.id[i]))
         genotype <- read.csv2(paste0(PATH_1K,
                                      "genotypeSample/",
                                      chr, "/",
                                      pedSel$sample.id[i], ".",
                                      chr, ".vcf.bz2"))
-
+        print("End read genotype")
 
 
 
