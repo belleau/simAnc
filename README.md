@@ -1,15 +1,11 @@
 # simAnc 
 
-A R package simulation Ancestry
-
-
-## Citing ##
-
-
+A R package for simulation Ancestry
 
 ## Authors ##
 
-[Pascal Belleau](http://ca.linkedin.com/in/pascalbelleau "Pascal Belleau"), [Astrid Deschênes](http://ca.linkedin.com/in/astriddeschenes "Astrid Deschênes") and Alexander Krasnitz
+[Pascal Belleau](http://ca.linkedin.com/in/pascalbelleau "Pascal Belleau"), 
+[Astrid Deschênes](http://ca.linkedin.com/in/astriddeschenes "Astrid Deschênes") and Alexander Krasnitz
 
 
 ## Installation ##
@@ -17,7 +13,7 @@ A R package simulation Ancestry
 ```r
 ## To install the development version from GitHub
 install.packages("devtools")
-devtools::install_github("")
+devtools::install_github("belleau/simAnc")
 ```
 
 ## License ##
@@ -32,6 +28,6 @@ For more information on GPL-2 License see
 ## Bugs/Feature requests ##
 
 If you have any bugs or feature requests, 
-[let us know](). 
+[let us know](https://github.com/belleau/simAnc/issues). 
 
 Thanks!

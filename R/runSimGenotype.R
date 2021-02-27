@@ -8,7 +8,7 @@
 #'
 #' @param snv a \code{data.frame}
 #'
-#' @param genotype \code{data.frame}
+#' @param genotype a \code{data.frame}
 #'
 #' @return a \code{}
 #'
@@ -16,10 +16,9 @@
 #'
 #' # TODO
 #'
-#' @author Pascal Belleau, Astrid Deschenes
+#' @author Pascal Belleau, Astrid Deschênes
+#' @encoding UTF-8
 #' @export
-
-
 simulationGenotypeProfileFacets <- function(PATH_OUT,
                                         PATH_1K,
                                         patientID,

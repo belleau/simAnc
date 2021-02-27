@@ -2,15 +2,21 @@ Package: simAnc
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    c(
+    person(given = "Pascal", family = "Belleau", role = c("aut", "cre"),
+    email = "pascal_belleau@hotmail.com",
+    comment = c(ORCID = "0000-0002-0802-1071")),
+    person(given = "Astrid", family = "Deschênes", 
+    email = "adeschen@hotmail.com", role = c("aut"),
+    comment = c(ORCID = "0000-0001-7846-6749")),
+    person(given = "Alexander", family = "Krasnitz", 
+    email = "krasnitz@cshl.edu", role = c("aut"))
+    )
 Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+Depends: R (>= 4.0)
+License: Artistic-2.0
 Encoding: UTF-8
+VignetteBuilder: knitr
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
