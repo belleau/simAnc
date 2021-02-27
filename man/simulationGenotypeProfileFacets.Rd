@@ -15,6 +15,7 @@ simulationGenotypeProfileFacets(
   chr,
   nbSim,
   minCov = 10,
+  minFreq = 0.01,
   seqError = 0.001/3,
   dProp = NA
 )
