@@ -49,6 +49,8 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
 
     print("End read files")
     infoSNV <- parseSelMinFreq(snv=matFreq, genotype=genotype, minFreq)
+    print("computeBedCov")
+    infoSNV$snv <- computeBedCov(bedCov, infoSNV$snv)
 
 
     snv <- NULL
