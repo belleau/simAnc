@@ -27,7 +27,7 @@ seqError <- 0.001/3
 dProp <- NA
 
 
-fileBed < paste0(PATH_BED, patientID,".bed.gz")
+fileBed <- paste0(PATH_BED, patientID,".bed.gz")
 pedFile <- paste0(PATH_PED, sampleRef)
 fileFacets <- paste0(PATH_FACETS, "facets_", fileFacets ,"_NO.rds")
 filePedSel <- paste0(PATH_PED, sampleRef)
