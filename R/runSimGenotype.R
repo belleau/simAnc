@@ -75,12 +75,13 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
                                         chr,
                                         nbSim,
                                         minCov = 10,
+                                        minFreq = 0.01,
                                         seqError =  0.001/3,
                                         dProp = NA){
     print("Read Files")
     pedSel <- readRDS(filePedSel)
 
-    infoSNV <- readRDS(paste0(PATH_OUT, "infoSNV.rds"))
+    infoSNV <- readRDS(paste0(PATH_OUT, "infoSNV.f", minFreq,".rds"))
 
     #Elzar
     #bedCov <- read.table(pipe(paste0("zcat ", PATH_BED, patientID,".bed.gz|grep $'", chr, "\t'")), sep="\t")[,1:3]

@@ -36,6 +36,6 @@ fileMatFreq <- paste0(PATH_1K, "genotypeSample/", chr, "/matFreqSNV", chr,".txt.
 
 simulationGenotypeProfileFacets(PATH_OUT,PATH_1K,
                                 patientID,
-                                fileBed, fileFacets, filePedSel, fileMatFreq,
+                                fileBed, fileFacets, filePedSel,
                                 chr, nbSim, minCov, minFreq, seqError, dProp)
 
