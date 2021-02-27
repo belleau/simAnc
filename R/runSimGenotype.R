@@ -41,7 +41,7 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
     #bedCov <- read.table(pipe(paste0("zcat ", PATH_BED, patientID,".bed.gz|grep $'", chr, "\t'")), sep="\t")[,1:3]
     #Wigclust
     bedCov <- read.table(pipe(paste0("zcat ", fileBed,"|grep -P ", chr, "'\t'")), sep="\t")[,1:3]
-
+    colnames(bedCov) <- c("chr", "start", "end")
     facetsRes <- readRDS(fileFacets)
     mysegs <- facetsRes$cncf[which(facetsRes$cncf$chrom == as.numeric(gsub("chr", "",chr))), ]
     mysegs$lap <- rep(NA, nrow(mysegs))
