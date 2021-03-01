@@ -7,7 +7,6 @@
 simuleBasicGenoChr(
   genotype,
   infoSNV,
-  bedRead,
   mysegs,
   nbSim,
   minCov = 10,

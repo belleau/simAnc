@@ -115,7 +115,6 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
 
         resFinal <- simuleBasicGenoChr(genotype,
                                        infoSNV,
-                                       bedCov,
                                        mysegs,
                                        nbSim,
                                        minCov,

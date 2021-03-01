@@ -6,7 +6,7 @@ load_all(path = "/mnt/wigclust18/data/unsafe/belleau/beatHaplo/subsetMix/package
 
 sampleRef <- argv[1]
 nbSim <- as.numeric(argv[2])
-minFreq <- argv[3]
+minFreq <- as.numeric(argv[3])
 
 nameSel <- gsub(".rds", "", sampleRef)
 

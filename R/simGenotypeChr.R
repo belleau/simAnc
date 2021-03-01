@@ -21,7 +21,6 @@
 
 simuleBasicGenoChr <- function(genotype,
                        infoSNV,
-                       bedRead,
                        mysegs,
                        nbSim,
                        minCov = 10,
