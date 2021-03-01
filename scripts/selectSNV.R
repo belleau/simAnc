@@ -13,6 +13,7 @@ nameSel <- gsub(".rds", "", sampleRef)
 
 PATH_1K <- "/mnt/wigclust5/data/unsafe/belleau/process1000G/samples1000gUnrelated/"
 for(c in seq_len(22)){
+    chr <- paste0("chr", c)
     PATH_OUT <- paste0("data/simRes.", nameSel, ".", nbSim,"/", chr, "/")
 
     fileMatFreq <- paste0(PATH_1K, "genotypeSample/", chr, "/matFreqSNV", chr,".txt.bz2")

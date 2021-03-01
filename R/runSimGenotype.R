@@ -91,7 +91,7 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
     facetsRes <- readRDS(fileFacets)
     mysegs <- facetsRes$cncf[which(facetsRes$cncf$chrom == as.numeric(gsub("chr", "",chr))), ]
     mysegs$lap <- rep(NA, nrow(mysegs))
-    selTmp <- which(!(is.na(mysegs$lcn.em)) || mysegs$tcn.em != 0 )
+    selTmp <- which(!(is.na(mysegs$lcn.em)) & mysegs$tcn.em != 0 )
     mysegs$lap[selTmp] <- mysegs$lcn.em[selTmp] / mysegs$tcn.em[selTmp]
 
     print("End read files")

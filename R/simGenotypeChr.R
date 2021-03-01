@@ -30,13 +30,13 @@ simuleBasicGenoChr <- function(genotype,
 
 
     infoSNV$snv <- setGeno(infoSNV, genotype)
-    print("parseSegLap")
+
     infoSNV$snv <- parseSegLap(mysegs, infoSNV$snv, seqError, dProp)
-    print("simulateAllele")
+
     resSim <- simulateAllele(infoSNV$snv, minCov, nbSim)
-    print("simulateBlockSeg")
+
     blockSeg <- simulateBlockSeg(infoSNV$snv[resSim$listSNV, ], nbSim)
-    print("genoMatrix")
+
     matGeno <- genoMatrix( infoSNV$snv, resSim, blockSeg)
 
     resFinal <- list(snv = infoSNV$snv[resSim$listSNV,-1*seq_len(4)],
