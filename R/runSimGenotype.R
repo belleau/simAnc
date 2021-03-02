@@ -100,7 +100,7 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
     infoSNV$snv <- computeBedCov(bedCov, infoSNV$snv)
 
 
-    snv <- NULL
+
     for(i in seq_len(nrow(pedSel))){
         print(paste0("Process ",patientID, ".", pedSel$sample.id[i]))
         genotype <- read.csv2(paste0(PATH_1K,
@@ -108,9 +108,6 @@ simulationGenotypeProfileFacets <- function(PATH_OUT,
                                      chr, "/",
                                      pedSel$sample.id[i], ".",
                                      chr, ".vcf.bz2"))
-        print("End read genotype")
-
-
 
 
         resFinal <- simuleBasicGenoChr(genotype,
