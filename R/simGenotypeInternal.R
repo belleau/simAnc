@@ -215,7 +215,7 @@ simulateBlockSeg <- function(snv, nbSim){
 
     # the segment must be a sequence 1:nbSeg
     z <- cumsum(snvNoNa$seg - c(0,snvNoNa$seg[-nrow(snvNoNa)]))
-    blockSeg <- matrix(sample(x = c(0,1), nbSim *(length(unique(snvNoNa$seg))), replace=TRUE),nc=nbSim)
+    blockSeg <- matrix(sample(x = c(0,1), nbSim *(max(snvNoNa$seg)), replace=TRUE),nc=nbSim)
     LAFparent <- matrix(0,nr=nrow(snv), nc=nbSim)
     LAFparent[listPos,] <- blockSeg[z,]
     return(LAFparent)
