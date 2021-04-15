@@ -20,7 +20,7 @@ for(c in seq_len(22)){
     matFreq <- read.csv2(fileMatFreq, header=FALSE)
     colnames(matFreq) <- c("chr", "pos", "ref", "alt", "AF", "EAS_AF" ,"EUR_AF", "AFR_AF", "AMR_AF", "SAS_AF")
 
-    infoSNV <- parseSelMinFreq(snv=matFreq, genotype=genotype, minFreq)
+    infoSNV <- parseSelMinFreq(snv=matFreq, minFreq)
 
     saveRDS(infoSNV, paste0(PATH_OUT, "infoSNV.f", minFreq,".rds"))
 }
