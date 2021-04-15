@@ -128,7 +128,7 @@ parseCatLap <- function(mysegs, snv, regionId, seqError = 0.001/3, dProp=0.5){
     snv[,"lap"]<-rep(dProp,nrow(snv))
     snv[,"seg"] <- snv[,regionId]
 
-    for(i in seq_len(mysegs)){
+    for(i in seq_len(nrow(mysegs))){
         snv[snv[,regionId] == mysegs$regionId[i], "lap"] <- min(mysegs$adr1[i], mysegs$adr2[i])/ (mysegs$adr1[i] + mysegs$adr2[i])
     }
 
