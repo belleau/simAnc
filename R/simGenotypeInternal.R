@@ -91,6 +91,55 @@ parseSegLap <- function(mysegs, snv, seqError = 0.001/3, dProp=NA){
 
 }
 
+#' @title parseCatLap
+#'
+#' @description Add the column lap and seg to the snv dataframe from parseStatMinFreq
+#' Here lap is lower allele proportion for the snv in the sample
+#' (not minimal allele freq in the population)
+#'
+#' @param mysegs a \code{list} of \code{data.frame}, from one chr only
+#' with at least the column start, end, lap. If the segments come from
+#' Facets lap = lcn.em / tcn.em
+#'
+#' @param snv a \code{data.frame}
+#'
+#' @param seqError \code{numeric} lap for the other alleles
+#' for the homozygote Default: 0.001/3
+#'
+#' @param dProp \code{numeric} value of lap out of the segments
+#' Default: \code{NA}
+#'
+#' @return a \code{data.frame} the snv from the input plus column
+#' lap and seg (the index of the segments)
+#'
+#' @examples
+#'
+#' # TODO
+#'
+#' @author Pascal Belleau, Astrid Deschenes and
+#' Alexander Krasnitz
+#'
+#' @keywords internal
+
+
+parseCatLap <- function(mysegs, snv, regionId, seqError = 0.001/3, dProp=0.5){
+
+
+    snv[,"lap"]<-rep(dProp,nrow(snv))
+    snv[,"seg"] <- snv[,regionId]
+
+    for(i in seq_len(mysegs)){
+        snv[snv[,regionId] == mysegs$regionId[i], "lap"] <- min(mysegs$adr1[i], mysegs$adr2[i])/ (mysegs$adr1[i] + mysegs$adr2[i])
+    }
+
+
+
+    snv[which(snv$gtype %in% c("0|0", "1|1")), "lap"] <- seqError
+    snv[is.na(snv[,"lap"]),"seg"] <- NA
+
+    return(snv)
+
+}
 
 
 #' @title computeBedCov
