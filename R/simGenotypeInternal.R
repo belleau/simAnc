@@ -122,11 +122,13 @@ parseSegLap <- function(mysegs, snv, seqError = 0.001/3, dProp=NA){
 #' @keywords internal
 
 
-parseCatLap <- function(mysegs, snv, regionId, seqError = 0.001/3, dProp=0.5){
+parseCatLap <- function(mysegs, snv, regionId, popCur, seqError = 0.001/3, dProp=0.5){
 
 
     snv[,"lap"]<-rep(dProp,nrow(snv))
-    snv[,"seg"] <- snv[,regionId]
+    snv[,"block"] <- snv[, paste0(popCur, "_B")]
+
+    snv[snv[,"block"] == 0,"block"] <- -1 * seq_len(nrow(snv[snv[,"block"] == 0,]))
 
     for(i in seq_len(nrow(mysegs))){
         snv[snv[,regionId] == mysegs$regionId[i], "lap"] <- min(mysegs$adr1[i], mysegs$adr2[i])/ (mysegs$adr1[i] + mysegs$adr2[i])
@@ -135,7 +137,6 @@ parseCatLap <- function(mysegs, snv, regionId, seqError = 0.001/3, dProp=0.5){
 
 
     snv[which(snv$gtype %in% c("0|0", "1|1")), "lap"] <- seqError
-    snv[is.na(snv[,"lap"]),"seg"] <- NA
 
     return(snv)
 
@@ -270,6 +271,44 @@ simulateBlockSeg <- function(snv, nbSim){
     return(LAFparent)
 }
 
+#' @title simulateBlockCat
+#'
+#' @description Select for each SNV which haplotype (left or right, father or mother) are lap
+#'
+#' @param snv a \code{data.frame}
+#'
+#' @param nbSim \code{integer} number of simulation
+#'
+#' @return a \code{matrix} of 0,1 coding a selection of the left or right (father or mother haplotype)
+#' if seg is NA always 0
+#' LAF == 1 left is lap LAF == 0 left is 1-lap because of
+#' the function genoMatrix(...)
+#'
+#' @examples
+#'
+#' # TODO
+#'
+#' @author Pascal Belleau, Astrid Deschenes and
+#' Alexander Krasnitz
+#'
+#' @keywords internal
+
+
+simulateBlockCat <- function(snv, nbSim, pRecomb=c(0.9,0.1)){
+
+    listPos <- which(!is.na(snv$lap))
+
+    snvNoNa <- snv[listPos,]
+    # work with blocks
+
+
+    # the segment must be a sequence
+    z <- cumsum(snvNoNa$block != c(0,snvNoNa$block[-nrow(snvNoNa)]))
+    blockSeg <- matrix(sample(x = c(0,1), nbSim *(length(unique(snvNoNa$block))), replace=TRUE, p = pRecomb),nc=nbSim)
+    LAFparent <- matrix(0,nr=nrow(snv), nc=nbSim)
+    LAFparent[listPos,] <- blockSeg[z,]
+    return(LAFparent)
+}
 
 #' @title genoMatrix
 #'

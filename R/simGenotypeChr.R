@@ -70,21 +70,22 @@ simuleBasicGenoChr <- function(genotype,
 
 
 simuleCatGenoChr <- function(genotype,
-                               infoSNV,
-                               mysegs,
-                               nbSim,
-                               minCov = 10,
-                               seqError =  0.001/3,
-                               dProp = 0.5){
+                             infoSNV,
+                             mysegs,
+                             popCur,
+                             nbSim,
+                             minCov = 10,
+                             seqError =  0.001/3,
+                             dProp = 0.5){
 
 
     infoSNV$snv <- setGeno(infoSNV, genotype)
 
-    infoSNV$snv <- parseCatLap(mysegs, infoSNV$snv, "GName", seqError, dProp)
+    infoSNV$snv <- parseCatLap(mysegs, infoSNV$snv, "GName", popCur, seqError, dProp)
 
     resSim <- simulateAllele(infoSNV$snv, minCov, nbSim)
 
-    blockSeg <- simulateBlockSeg(infoSNV$snv[resSim$listSNV, ], nbSim)
+    blockSeg <- simulateBlockCat(infoSNV$snv[resSim$listSNV, ], nbSim)
 
     matGeno <- genoMatrix( infoSNV$snv, resSim, blockSeg)
 

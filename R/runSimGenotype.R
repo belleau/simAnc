@@ -202,12 +202,13 @@ simulationGenotypeProfileCat <- function(PATH_OUT,
 
 
         resFinal <- simuleCatGenoChr(genotype,
-                                       infoSNV,
+                                     infoSNV,
                                      catRes[[pedSel$superPop[i]]],
-                                       nbSim,
-                                       minCov,
-                                       seqError,
-                                       dProp)
+                                     pedSel$superPop[i],
+                                     nbSim,
+                                     minCov,
+                                     seqError,
+                                     dProp)
 
         resFile <- paste0(PATH_OUT, patientID, ".", pedSel$sample.id[i], ".", chr, ".rds")
         saveRDS(resFinal, resFile)
