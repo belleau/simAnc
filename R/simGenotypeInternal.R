@@ -84,6 +84,63 @@ parseSegLap <- function(mysegs, snv, seqError = 0.001/3, dProp=NA){
     lap <- mysegs[,"lap"]#mysegs[,"lcn.em"]/mysegs[,"tcn.em"]
     snv[,"lap"]<-rep(dProp,nrow(snv))
     snv[,"seg"]<-rep(NA,nrow(snv))
+
+
+    snv[mysegis!=0,"lap"] <- lap[mysegis[mysegis!=0]]
+    snv[mysegis!=0,"seg"] <- mysegis[mysegis!=0]
+    snv[which(snv$gtype %in% c("0|0", "1|1")), "lap"] <- seqError
+    return(snv)
+
+}
+
+#' @title parseSegBlockLap
+#'
+#' @description Add the column lap and seg to the snv dataframe from parseStatMinFreq
+#' Here lap is lower allele proportion for the snv in the sample
+#' (not minimal allele freq in the population)
+#'
+#' @param mysegs a \code{list} of \code{data.frame}, from one chr only
+#' with at least the column start, end, lap. If the segments come from
+#' Facets lap = lcn.em / tcn.em
+#'
+#' @param snv a \code{data.frame}
+#'
+#' @param seqError \code{numeric} lap for the other alleles
+#' for the homozygote Default: 0.001/3
+#'
+#' @param dProp \code{numeric} value of lap out of the segments
+#' Default: \code{NA}
+#'
+#' @return a \code{data.frame} the snv from the input plus column
+#' lap and seg (the index of the segments)
+#'
+#' @examples
+#'
+#' # TODO
+#'
+#' @author Pascal Belleau, Astrid Deschenes and
+#' Alexander Krasnitz
+#'
+#' @keywords internal
+
+
+parseSegBlockLap <- function(mysegs, snv, popCur, seqError = 0.001/3, dProp=NA){
+
+    #for each variant position in the reference, find CN and left allele
+    #fraction
+    z<-cbind(c(mysegs[,"start"],mysegs[,"end"],snv[,"pos"]),
+             c(seq_len(nrow(mysegs)),
+               -(seq_len(nrow(mysegs))),
+               rep(0,nrow(snv))))
+
+    z<-z[order(z[,1]),,drop=F]
+    mysegis<-cumsum(z[,2])[z[,2]==0]
+    lap <- mysegs[,"lap"]#mysegs[,"lcn.em"]/mysegs[,"tcn.em"]
+    snv[,"lap"]<-rep(dProp,nrow(snv))
+    snv[,"seg"]<-rep(NA,nrow(snv))
+    snv[,"block"] <- snv[, paste0(popCur, "_B")]
+
+    snv[snv[,"block"] == 0,"block"] <- -1 * seq_len(nrow(snv[snv[,"block"] == 0,]))
     snv[mysegis!=0,"lap"] <- lap[mysegis[mysegis!=0]]
     snv[mysegis!=0,"seg"] <- mysegis[mysegis!=0]
     snv[which(snv$gtype %in% c("0|0", "1|1")), "lap"] <- seqError
@@ -168,7 +225,7 @@ parseCatLap <- function(mysegs, snv, regionId, popCur, seqError = 0.001/3, dProp
 
 computeBedCov <- function(myreads, snv){
 
-    z<-cbind(c(myreads[,"start"],myreads[,"end"],snv[,"pos"]),
+    z<-cbind(c(myreads[,"start"],myreads[,"end"],snv[,"pos"]-1),
              c(rep(1,nrow(myreads)),
                rep(-1,nrow(myreads)),
                rep(0,nrow(snv))))
