@@ -132,7 +132,7 @@ simuleSegBlockGenoChr <- function(genotype,
     infoSNV$snv <- setGeno(infoSNV, genotype)
 
 #    infoSNV$snv <- parseCatLap(mysegs, infoSNV$snv, "GName", popCur, seqError, dProp)
-    infoSNV$snv <- parseSegBlockLap(mysegs, infoSNV$snv, "GName", popCur, seqError, dProp)
+    infoSNV$snv <- parseSegBlockLap(mysegs, infoSNV$snv, popCur, seqError, dProp)
 
     resSim <- simulateAllele(infoSNV$snv, minCov, nbSim)
 

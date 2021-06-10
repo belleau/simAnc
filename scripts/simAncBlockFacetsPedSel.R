@@ -25,7 +25,7 @@ PATH_FACETS <- "data/facetsFit/"
 minCov <- 10
 minFreq =0.01
 seqError <- 0.001/3
-dProp <- NA
+dProp <- 0.5
 
 
 fileBed <- paste0(PATH_BED, patientID,".bed.gz")
